@@ -33,7 +33,7 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   overflow: hidden;
-  transition: transform 1.5s cubic-bezier(1, -0.29, .48, .84);
+  transition: transform 1.5s cubic-bezier(.59,-0.01,.68,-0.03);
 }
 
 * {
