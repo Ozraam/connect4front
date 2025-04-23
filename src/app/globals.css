@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #7A45FF;
   --foreground: #171717;
 }
 
@@ -10,6 +10,13 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-board: #FFFFFF;
+  --color-red-player: #FD6787;
+  --color-yellow-player: #FFD06B;
+  --shadow-sharp: 5px 5px 0 0px black;
+  --shadow-hole: inset 0px 10px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-hole-soft: inset 0px 5px 0px 2px rgba(0, 0, 0, 0.5);
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +30,10 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+  transition: transform 1.5s cubic-bezier(1, -0.29, .48, .84);
+}
+
+* {
+  perspective: 1000px;
 }
