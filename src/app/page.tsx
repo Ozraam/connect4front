@@ -1,6 +1,7 @@
 "use client";
 import Connect4Board from "@/components/Connect4Board";
 import EndGameModal from "@/components/EndGameModal";
+import PlayerStreak from "@/components/PlayerStreak";
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -28,7 +29,6 @@ export default function Home() {
     });
     if (res.ok) {
       const data = await res.json();
-      console.log(data);
       setGame(data);
       setLastPlayer(null);
       localStorage.setItem("gameId", data.id);
@@ -55,15 +55,25 @@ export default function Home() {
     });
     if (res.ok) {
       const data = await res.json();
-      console.log(data);
       setLastPlayer(colIndex);
       setGame(data);
+
+      if (data.winner) {
+        const winnerStreak = localStorage.getItem("winner"+data.winner);
+        if (winnerStreak) {
+          localStorage.setItem("winner"+data.winner, (parseInt(winnerStreak) + 1).toString());
+        }
+        else {
+          localStorage.setItem("winner"+data.winner, "1");
+        }
+      }
     } else {
       console.error("Error playing move");
       if (res.status === 404) {
         console.error("Game not found");
         setGame(null);
         localStorage.removeItem("gameId");
+        startNewGame();
       } else if (res.status === 400) {
         console.error("Invalid move");
       } else if (res.status === 500) {
@@ -89,7 +99,16 @@ export default function Home() {
       console.log(data);
       setGame(data);
     } else {
-      console.error("Error getting game state");
+      if (res.status === 404) {
+        console.error("Game not found");
+        setGame(null);
+        localStorage.removeItem("gameId");
+        startNewGame();
+      } else if (res.status === 400) {
+        console.error("Invalid move");
+      } else if (res.status === 500) {
+        console.error("Server error");
+      }
     }
   }
 
@@ -159,7 +178,15 @@ export default function Home() {
         {(game?.winner || game?.is_draw) && (
           <EndGameModal winner={game.winner} onRestart={resetGame} />
         )}
-        {comp}
+        <div className="flex justify-evenly w-full">
+          <PlayerStreak name="You" streak={parseInt(localStorage.getItem("winnerred") ?? "0")} color="bg-red-player"/>
+
+
+          {comp}
+
+          <PlayerStreak name="AI" streak={parseInt(localStorage.getItem("winneryellow") ?? "0")} color="bg-yellow-player"/>
+
+        </div>
       </div>
     </main>
   );

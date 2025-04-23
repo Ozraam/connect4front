@@ -14,6 +14,8 @@
   --color-red-player: #FD6787;
   --color-yellow-player: #FFD06B;
   --shadow-sharp: 5px 5px 0 0px black;
+  --shadow-sharp-small: 2px 2px 0 0px black;
+
   --shadow-hole: inset 0px 10px 0px 0px rgba(0, 0, 0, 1);
   --shadow-hole-soft: inset 0px 5px 0px 2px rgba(0, 0, 0, 0.5);
 
