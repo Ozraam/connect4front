@@ -1,6 +1,9 @@
 "use client";
 
+import BoardSpin from "@/animation/BoardSpin";
 import CellFall from "@/animation/CellFall";
+import CellSpin from "@/animation/CellSpin";
+import SkewBoard from "@/animation/SkewBoard";
 
 export default function Connect4Board({
   board,
@@ -13,9 +16,13 @@ export default function Connect4Board({
   last_player_move: number | null;
   last_ai_move: number | null;
 }) {
+    let cellAnimation = [<CellFall />, <CellSpin />, <BoardSpin />, <SkewBoard />];
+
+
+
   return (
     <div className="flex flex-col items-center justify-center">
-      <CellFall />
+      {cellAnimation[Math.floor(Math.random() * cellAnimation.length)]}
 
       <style>{`
         .click {
@@ -37,7 +44,7 @@ export default function Connect4Board({
     `}</style>
 
       <h1 className="text-4xl font-bold mb-4 text-white">Connect 4</h1>
-      <div className="flex flex-col gap-2 bg-board p-4 rounded-4xl shadow-sharp border-2 border-black">
+      <div className="board flex flex-col gap-2 bg-board p-4 rounded-4xl shadow-sharp border-2 border-black">
         {board.toReversed().map((row, rowIndex) => (
           <div key={rowIndex} className="flex gap-2">
             {row.map((cell, colIndex) => (

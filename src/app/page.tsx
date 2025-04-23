@@ -58,9 +58,6 @@ export default function Home() {
       console.log(data);
       setLastPlayer(colIndex);
       setGame(data);
-      setTimeout(() => {
-        setLastPlayer(null);
-      }, 1500);
     } else {
       console.error("Error playing move");
       if (res.status === 404) {
